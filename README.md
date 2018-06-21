@@ -1,6 +1,6 @@
 # clean-code-javascript
 
-## Table of Contents
+## 目錄
   1. [Introduction](#introduction)
   2. [Variables](#variables)
   3. [Functions](#functions)
@@ -41,52 +41,47 @@ shaped into its final form. Finally, we chisel away the imperfections when
 we review it with our peers. Don't beat yourself up for first drafts that need
 improvement. Beat up the code instead!
 
-## **Variables**
-### Use meaningful and pronounceable variable names
+## **變數**
+### 使用有意義且容易閱讀的變數名稱
 
-**Bad:**
+**不好的：**
 ```javascript
 const yyyymmdstr = moment().format('YYYY/MM/DD');
 ```
 
-**Good:**
+**好的：**
 ```javascript
 const currentDate = moment().format('YYYY/MM/DD');
 ```
 **[⬆ back to top](#table-of-contents)**
 
-### Use the same vocabulary for the same type of variable
+### 相同類型的變數使用統一的命名風格
 
-**Bad:**
+**不好的：**
 ```javascript
 getUserInfo();
 getClientData();
 getCustomerRecord();
 ```
 
-**Good:**
+**好的：**
 ```javascript
 getUser();
 ```
 **[⬆ back to top](#table-of-contents)**
 
-### Use searchable names
-We will read more code than we will ever write. It's important that the code we
-do write is readable and searchable. By *not* naming variables that end up
-being meaningful for understanding our program, we hurt our readers.
-Make your names searchable. Tools like
-[buddy.js](https://github.com/danielstjules/buddy.js) and
-[ESLint](https://github.com/eslint/eslint/blob/660e0918933e6e7fede26bc675a0763a6b357c94/docs/rules/no-magic-numbers.md)
-can help identify unnamed constants.
+### 使用易於查詢的名稱
+我們需要閱讀的程式碼往往比自己寫的還多，因此使程式碼易於閱讀和檢索就非常重要。使用沒有意義的變數名稱將使閱讀程式碼的人難以理解程式內容。
+像是 [buddy.js](https://github.com/danielstjules/buddy.js) 和 [ESLint](https://github.com/eslint/eslint/blob/660e0918933e6e7fede26bc675a0763a6b357c94/docs/rules/no-magic-numbers.md) 可幫助我們識別未定義的數字常數。
 
-**Bad:**
+**不好的：**
 ```javascript
 // What the heck is 86400000 for?
 setTimeout(blastOff, 86400000);
 
 ```
 
-**Good:**
+**好的：**
 ```javascript
 // Declare them as capitalized named constants.
 const MILLISECONDS_IN_A_DAY = 86400000;
@@ -96,15 +91,15 @@ setTimeout(blastOff, MILLISECONDS_IN_A_DAY);
 ```
 **[⬆ back to top](#table-of-contents)**
 
-### Use explanatory variables
-**Bad:**
+### 使用解釋性的變數
+**不好的：**
 ```javascript
 const address = 'One Infinite Loop, Cupertino 95014';
 const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
 saveCityZipCode(address.match(cityZipCodeRegex)[1], address.match(cityZipCodeRegex)[2]);
 ```
 
-**Good:**
+**好的：**
 ```javascript
 const address = 'One Infinite Loop, Cupertino 95014';
 const cityZipCodeRegex = /^[^,\\]+[,\\\s]+(.+?)\s*(\d{5})?$/;
@@ -113,10 +108,10 @@ saveCityZipCode(city, zipCode);
 ```
 **[⬆ back to top](#table-of-contents)**
 
-### Avoid Mental Mapping
-Explicit is better than implicit.
+### 避免過於簡化的縮寫
+顯示比隱藏更好
 
-**Bad:**
+**不好的：**
 ```javascript
 const locations = ['Austin', 'New York', 'San Francisco'];
 locations.forEach((l) => {
@@ -130,7 +125,7 @@ locations.forEach((l) => {
 });
 ```
 
-**Good:**
+**好的：**
 ```javascript
 const locations = ['Austin', 'New York', 'San Francisco'];
 locations.forEach((location) => {
@@ -144,11 +139,10 @@ locations.forEach((location) => {
 ```
 **[⬆ back to top](#table-of-contents)**
 
-### Don't add unneeded context
-If your class/object name tells you something, don't repeat that in your
-variable name.
+### 避免重複描述
+如果你的類別/物件名稱有意義，不必在變數名稱中再重複。
 
-**Bad:**
+**不好的：**
 ```javascript
 const Car = {
   carMake: 'Honda',
@@ -161,7 +155,7 @@ function paintCar(car) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 const Car = {
   make: 'Honda',
@@ -176,12 +170,13 @@ function paintCar(car) {
 **[⬆ back to top](#table-of-contents)**
 
 ### Use default arguments instead of short circuiting or conditionals
+### 使用預設參數
 Default arguments are often cleaner than short circuiting. Be aware that if you
 use them, your function will only provide default values for `undefined`
 arguments. Other "falsy" values such as `''`, `""`, `false`, `null`, `0`, and
 `NaN`, will not be replaced by a default value.
 
-**Bad:**
+**不好的：**
 ```javascript
 function createMicrobrewery(name) {
   const breweryName = name || 'Hipster Brew Co.';
@@ -190,7 +185,7 @@ function createMicrobrewery(name) {
 
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function createMicrobrewery(name = 'Hipster Brew Co.') {
   // ...
@@ -228,14 +223,14 @@ cloned.
 3. Linters can warn you about unused properties, which would be impossible
 without destructuring.
 
-**Bad:**
+**不好的：**
 ```javascript
 function createMenu(title, body, buttonText, cancellable) {
   // ...
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function createMenu({ title, body, buttonText, cancellable }) {
   // ...
@@ -258,7 +253,7 @@ When you can isolate a function to just one action, they can be refactored
 easily and your code will read much cleaner. If you take nothing else away from
 this guide other than this, you'll be ahead of many developers.
 
-**Bad:**
+**不好的：**
 ```javascript
 function emailClients(clients) {
   clients.forEach((client) => {
@@ -270,7 +265,7 @@ function emailClients(clients) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function emailActiveClients(clients) {
   clients
@@ -287,7 +282,7 @@ function isActiveClient(client) {
 
 ### Function names should say what they do
 
-**Bad:**
+**不好的：**
 ```javascript
 function addToDate(date, month) {
   // ...
@@ -299,7 +294,7 @@ const date = new Date();
 addToDate(date, 1);
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function addMonthToDate(month, date) {
   // ...
@@ -315,7 +310,7 @@ When you have more than one level of abstraction your function is usually
 doing too much. Splitting up functions leads to reusability and easier
 testing.
 
-**Bad:**
+**不好的：**
 ```javascript
 function parseBetterJSAlternative(code) {
   const REGEXES = [
@@ -341,7 +336,7 @@ function parseBetterJSAlternative(code) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function parseBetterJSAlternative(code) {
   const tokens = tokenize(code);
@@ -400,7 +395,7 @@ worse than duplicate code, so be careful! Having said this, if you can make
 a good abstraction, do it! Don't repeat yourself, otherwise you'll find yourself
 updating multiple places anytime you want to change one thing.
 
-**Bad:**
+**不好的：**
 ```javascript
 function showDeveloperList(developers) {
   developers.forEach((developer) => {
@@ -433,7 +428,7 @@ function showManagerList(managers) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function showEmployeeList(employees) {
   employees.forEach((employee) => {
@@ -462,7 +457,7 @@ function showEmployeeList(employees) {
 
 ### Set default objects with Object.assign
 
-**Bad:**
+**不好的：**
 ```javascript
 const menuConfig = {
   title: null,
@@ -481,7 +476,7 @@ function createMenu(config) {
 createMenu(menuConfig);
 ```
 
-**Good:**
+**好的：**
 ```javascript
 const menuConfig = {
   title: 'Order',
@@ -510,7 +505,7 @@ createMenu(menuConfig);
 ### Don't use flags as function parameters
 Flags tell your user that this function does more than one thing. Functions should do one thing. Split out your functions if they are following different code paths based on a boolean.
 
-**Bad:**
+**不好的：**
 ```javascript
 function createFile(name, temp) {
   if (temp) {
@@ -521,7 +516,7 @@ function createFile(name, temp) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function createFile(name) {
   fs.create(name);
@@ -549,7 +544,7 @@ without any structure, using mutable data types that can be written to by anythi
 and not centralizing where your side effects occur. If you can do this, you will
 be happier than the vast majority of other programmers.
 
-**Bad:**
+**不好的：**
 ```javascript
 // Global variable referenced by following function.
 // If we had another function that used this name, now it'd be an array and it could break it.
@@ -564,7 +559,7 @@ splitIntoFirstAndLastName();
 console.log(name); // ['Ryan', 'McDermott'];
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function splitIntoFirstAndLastName(name) {
   return name.split(' ');
@@ -611,14 +606,14 @@ this isn't a big issue in practice because there are
 this kind of programming approach to be fast and not as memory intensive as
 it would be for you to manually clone objects and arrays.
 
-**Bad:**
+**不好的：**
 ```javascript
 const addItemToCart = (cart, item) => {
   cart.push({ item, date: Date.now() });
 };
 ```
 
-**Good:**
+**好的：**
 ```javascript
 const addItemToCart = (cart, item) => {
   return [...cart, { item, date: Date.now() }];
@@ -638,7 +633,7 @@ to do the same thing. What if that other library was just using `diff` to find
 the difference between the first and last elements of an array? This is why it
 would be much better to just use ES2015/ES6 classes and simply extend the `Array` global.
 
-**Bad:**
+**不好的：**
 ```javascript
 Array.prototype.diff = function diff(comparisonArray) {
   const hash = new Set(comparisonArray);
@@ -646,7 +641,7 @@ Array.prototype.diff = function diff(comparisonArray) {
 };
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class SuperArray extends Array {
   diff(comparisonArray) {
@@ -662,7 +657,7 @@ JavaScript isn't a functional language in the way that Haskell is, but it has
 a functional flavor to it. Functional languages can be cleaner and easier to test.
 Favor this style of programming when you can.
 
-**Bad:**
+**不好的：**
 ```javascript
 const programmerOutput = [
   {
@@ -687,7 +682,7 @@ for (let i = 0; i < programmerOutput.length; i++) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 const programmerOutput = [
   {
@@ -713,14 +708,14 @@ const totalOutput = programmerOutput
 
 ### Encapsulate conditionals
 
-**Bad:**
+**不好的：**
 ```javascript
 if (fsm.state === 'fetching' && isEmpty(listNode)) {
   // ...
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function shouldShowSpinner(fsm, listNode) {
   return fsm.state === 'fetching' && isEmpty(listNode);
@@ -734,7 +729,7 @@ if (shouldShowSpinner(fsmInstance, listNodeInstance)) {
 
 ### Avoid negative conditionals
 
-**Bad:**
+**不好的：**
 ```javascript
 function isDOMNodeNotPresent(node) {
   // ...
@@ -745,7 +740,7 @@ if (!isDOMNodeNotPresent(node)) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function isDOMNodePresent(node) {
   // ...
@@ -767,7 +762,7 @@ one thing. When you have classes and functions that have `if` statements, you
 are telling your user that your function does more than one thing. Remember,
 just do one thing.
 
-**Bad:**
+**不好的：**
 ```javascript
 class Airplane {
   // ...
@@ -784,7 +779,7 @@ class Airplane {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class Airplane {
   // ...
@@ -819,7 +814,7 @@ Sometimes you are bitten by this freedom and it becomes tempting to do
 type-checking in your functions. There are many ways to avoid having to do this.
 The first thing to consider is consistent APIs.
 
-**Bad:**
+**不好的：**
 ```javascript
 function travelToTexas(vehicle) {
   if (vehicle instanceof Bicycle) {
@@ -830,7 +825,7 @@ function travelToTexas(vehicle) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function travelToTexas(vehicle) {
   vehicle.move(this.currentLocation, new Location('texas'));
@@ -849,7 +844,7 @@ doesn't make up for the lost readability. Keep your JavaScript clean, write
 good tests, and have good code reviews. Otherwise, do all of that but with
 TypeScript (which, like I said, is a great alternative!).
 
-**Bad:**
+**不好的：**
 ```javascript
 function combine(val1, val2) {
   if (typeof val1 === 'number' && typeof val2 === 'number' ||
@@ -861,7 +856,7 @@ function combine(val1, val2) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function combine(val1, val2) {
   return val1 + val2;
@@ -876,7 +871,7 @@ resources](https://github.com/petkaantonov/bluebird/wiki/Optimization-killers)
 for seeing where optimization is lacking. Target those in the meantime, until
 they are fixed if they can be.
 
-**Bad:**
+**不好的：**
 ```javascript
 
 // On old browsers, each iteration with uncached `list.length` would be costly
@@ -886,7 +881,7 @@ for (let i = 0, len = list.length; i < len; i++) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 for (let i = 0; i < list.length; i++) {
   // ...
@@ -899,7 +894,7 @@ Dead code is just as bad as duplicate code. There's no reason to keep it in
 your codebase. If it's not being called, get rid of it! It will still be safe
 in your version history if you still need it.
 
-**Bad:**
+**不好的：**
 ```javascript
 function oldRequestModule(url) {
   // ...
@@ -914,7 +909,7 @@ inventoryTracker('apples', req, 'www.inventory-awesome.io');
 
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function newRequestModule(url) {
   // ...
@@ -940,7 +935,7 @@ to look up and change every accessor in your codebase.
 server.
 
 
-**Bad:**
+**不好的：**
 ```javascript
 function makeBankAccount() {
   // ...
@@ -955,7 +950,7 @@ const account = makeBankAccount();
 account.balance = 100;
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function makeBankAccount() {
   // this one is private
@@ -988,7 +983,7 @@ account.setBalance(100);
 ### Make objects have private members
 This can be accomplished through closures (for ES5 and below).
 
-**Bad:**
+**不好的：**
 ```javascript
 
 const Employee = function(name) {
@@ -1005,7 +1000,7 @@ delete employee.name;
 console.log(`Employee name: ${employee.getName()}`); // Employee name: undefined
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function makeEmployee(name) {
   return {
@@ -1030,7 +1025,7 @@ definitions for classical ES5 classes. If you need inheritance (and be aware
 that you might not), then prefer ES2015/ES6 classes. However, prefer small functions over
 classes until you find yourself needing larger and more complex objects.
 
-**Bad:**
+**不好的：**
 ```javascript
 const Animal = function(age) {
   if (!(this instanceof Animal)) {
@@ -1069,7 +1064,7 @@ Human.prototype.constructor = Human;
 Human.prototype.speak = function speak() {};
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class Animal {
   constructor(age) {
@@ -1107,7 +1102,7 @@ For that reason, I say, use method chaining and take a look at how clean your co
 will be. In your class functions, simply return `this` at the end of every function,
 and you can chain further class methods onto it.
 
-**Bad:**
+**不好的：**
 ```javascript
 class Car {
   constructor(make, model, color) {
@@ -1138,7 +1133,7 @@ car.setColor('pink');
 car.save();
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class Car {
   constructor(make, model, color) {
@@ -1196,7 +1191,7 @@ relationship (Human->Animal vs. User->UserDetails).
 3. You want to make global changes to derived classes by changing a base class.
 (Change the caloric expenditure of all animals when they move).
 
-**Bad:**
+**不好的：**
 ```javascript
 class Employee {
   constructor(name, email) {
@@ -1219,7 +1214,7 @@ class EmployeeTaxData extends Employee {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class EmployeeTaxData {
   constructor(ssn, salary) {
@@ -1255,7 +1250,7 @@ It's important because if too much functionality is in one class and you modify
 a piece of it, it can be difficult to understand how that will affect other
 dependent modules in your codebase.
 
-**Bad:**
+**不好的：**
 ```javascript
 class UserSettings {
   constructor(user) {
@@ -1274,7 +1269,7 @@ class UserSettings {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class UserAuth {
   constructor(user) {
@@ -1308,7 +1303,7 @@ etc.) should be open for extension, but closed for modification." What does that
 mean though? This principle basically states that you should allow users to
 add new functionalities without changing existing code.
 
-**Bad:**
+**不好的：**
 ```javascript
 class AjaxAdapter extends Adapter {
   constructor() {
@@ -1351,7 +1346,7 @@ function makeHttpCall(url) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class AjaxAdapter extends Adapter {
   constructor() {
@@ -1403,7 +1398,7 @@ classic Square-Rectangle example. Mathematically, a square is a rectangle, but
 if you model it using the "is-a" relationship via inheritance, you quickly
 get into trouble.
 
-**Bad:**
+**不好的：**
 ```javascript
 class Rectangle {
   constructor() {
@@ -1448,7 +1443,7 @@ function renderLargeRectangles(rectangles) {
   rectangles.forEach((rectangle) => {
     rectangle.setWidth(4);
     rectangle.setHeight(5);
-    const area = rectangle.getArea(); // BAD: Returns 25 for Square. Should be 20.
+    const area = rectangle.getArea(); // 不好的： Returns 25 for Square. Should be 20.
     rectangle.render(area);
   });
 }
@@ -1457,7 +1452,7 @@ const rectangles = [new Rectangle(), new Rectangle(), new Square()];
 renderLargeRectangles(rectangles);
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class Shape {
   setColor(color) {
@@ -1519,7 +1514,7 @@ huge amounts of options is beneficial, because most of the time they won't need
 all of the settings. Making them optional helps prevent having a
 "fat interface".
 
-**Bad:**
+**不好的：**
 ```javascript
 class DOMTraverser {
   constructor(settings) {
@@ -1545,7 +1540,7 @@ const $ = new DOMTraverser({
 
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class DOMTraverser {
   constructor(settings) {
@@ -1600,7 +1595,7 @@ and properties that an object/class exposes to another object/class. In the
 example below, the implicit contract is that any Request module for an
 `InventoryTracker` will have a `requestItems` method.
 
-**Bad:**
+**不好的：**
 ```javascript
 class InventoryRequester {
   constructor() {
@@ -1616,7 +1611,7 @@ class InventoryTracker {
   constructor(items) {
     this.items = items;
 
-    // BAD: We have created a dependency on a specific request implementation.
+    // 不好的： We have created a dependency on a specific request implementation.
     // We should just have requestItems depend on a request method: `request`
     this.requester = new InventoryRequester();
   }
@@ -1632,7 +1627,7 @@ const inventoryTracker = new InventoryTracker(['apples', 'bananas']);
 inventoryTracker.requestItems();
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class InventoryTracker {
   constructor(items, requester) {
@@ -1692,7 +1687,7 @@ or refactoring an existing one.
 
 ### Single concept per test
 
-**Bad:**
+**不好的：**
 ```javascript
 import assert from 'assert';
 
@@ -1715,7 +1710,7 @@ describe('MakeMomentJSGreatAgain', () => {
 });
 ```
 
-**Good:**
+**好的：**
 ```javascript
 import assert from 'assert';
 
@@ -1746,7 +1741,7 @@ describe('MakeMomentJSGreatAgain', () => {
 Callbacks aren't clean, and they cause excessive amounts of nesting. With ES2015/ES6,
 Promises are a built-in global type. Use them!
 
-**Bad:**
+**不好的：**
 ```javascript
 import { get } from 'request';
 import { writeFile } from 'fs';
@@ -1767,7 +1762,7 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin', (requestErr, response) 
 
 ```
 
-**Good:**
+**好的：**
 ```javascript
 import { get } from 'request';
 import { writeFile } from 'fs';
@@ -1793,7 +1788,7 @@ in an `async` keyword, and then you can write your logic imperatively without
 a `then` chain of functions. Use this if you can take advantage of ES2017/ES8 features
 today!
 
-**Bad:**
+**不好的：**
 ```javascript
 import { get } from 'request-promise';
 import { writeFile } from 'fs-promise';
@@ -1811,7 +1806,7 @@ get('https://en.wikipedia.org/wiki/Robert_Cecil_Martin')
 
 ```
 
-**Good:**
+**好的：**
 ```javascript
 import { get } from 'request-promise';
 import { writeFile } from 'fs-promise';
@@ -1843,7 +1838,7 @@ to the console. If you wrap any bit of code in a `try/catch` it means you
 think an error may occur there and therefore you should have a plan,
 or create a code path, for when it occurs.
 
-**Bad:**
+**不好的：**
 ```javascript
 try {
   functionThatMightThrow();
@@ -1852,7 +1847,7 @@ try {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 try {
   functionThatMightThrow();
@@ -1871,7 +1866,7 @@ try {
 For the same reason you shouldn't ignore caught errors
 from `try/catch`.
 
-**Bad:**
+**不好的：**
 ```javascript
 getdata()
   .then((data) => {
@@ -1882,7 +1877,7 @@ getdata()
   });
 ```
 
-**Good:**
+**好的：**
 ```javascript
 getdata()
   .then((data) => {
@@ -1917,7 +1912,7 @@ JavaScript is untyped, so capitalization tells you a lot about your variables,
 functions, etc. These rules are subjective, so your team can choose whatever
 they want. The point is, no matter what you all choose, just be consistent.
 
-**Bad:**
+**不好的：**
 ```javascript
 const DAYS_IN_WEEK = 7;
 const daysInMonth = 30;
@@ -1932,7 +1927,7 @@ class animal {}
 class Alpaca {}
 ```
 
-**Good:**
+**好的：**
 ```javascript
 const DAYS_IN_WEEK = 7;
 const DAYS_IN_MONTH = 30;
@@ -1954,7 +1949,7 @@ If a function calls another, keep those functions vertically close in the source
 file. Ideally, keep the caller right above the callee. We tend to read code from
 top-to-bottom, like a newspaper. Because of this, make your code read that way.
 
-**Bad:**
+**不好的：**
 ```javascript
 class PerformanceReview {
   constructor(employee) {
@@ -1993,7 +1988,7 @@ const review = new PerformanceReview(employee);
 review.perfReview();
 ```
 
-**Good:**
+**好的：**
 ```javascript
 class PerformanceReview {
   constructor(employee) {
@@ -2038,7 +2033,7 @@ review.perfReview();
 ### Only comment things that have business logic complexity.
 Comments are an apology, not a requirement. Good code *mostly* documents itself.
 
-**Bad:**
+**不好的：**
 ```javascript
 function hashIt(data) {
   // The hash
@@ -2059,7 +2054,7 @@ function hashIt(data) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 
 function hashIt(data) {
@@ -2081,7 +2076,7 @@ function hashIt(data) {
 ### Don't leave commented out code in your codebase
 Version control exists for a reason. Leave old code in your history.
 
-**Bad:**
+**不好的：**
 ```javascript
 doStuff();
 // doOtherStuff();
@@ -2089,7 +2084,7 @@ doStuff();
 // doSoMuchStuff();
 ```
 
-**Good:**
+**好的：**
 ```javascript
 doStuff();
 ```
@@ -2099,7 +2094,7 @@ doStuff();
 Remember, use version control! There's no need for dead code, commented code,
 and especially journal comments. Use `git log` to get history!
 
-**Bad:**
+**不好的：**
 ```javascript
 /**
  * 2016-12-20: Removed monads, didn't understand them (RM)
@@ -2112,7 +2107,7 @@ function combine(a, b) {
 }
 ```
 
-**Good:**
+**好的：**
 ```javascript
 function combine(a, b) {
   return a + b;
@@ -2124,7 +2119,7 @@ function combine(a, b) {
 They usually just add noise. Let the functions and variable names along with the
 proper indentation and formatting give the visual structure to your code.
 
-**Bad:**
+**不好的：**
 ```javascript
 ////////////////////////////////////////////////////////////////////////////////
 // Scope Model Instantiation
@@ -2142,7 +2137,7 @@ const actions = function() {
 };
 ```
 
-**Good:**
+**好的：**
 ```javascript
 $scope.model = {
   menu: 'foo',
